@@ -1,51 +1,39 @@
-import React from 'react';
-import { 
-  BrowserRouter as Router, 
-  Route, 
-  Switch,
-  Link 
-} from 'react-router-dom';
-import HomeContainer from './containers/HomeContainer';
-import Hotels from './containers/Hotels';
-import Restaurants from './containers/Restaurants';
-import Login from './containers/Login';
-import Signup from './containers/Signup';
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-class App extends React.Component {
-  
-  render() {
+import Navigation from './components/navigation/Navigation';
+import HomeContainer from './containers/HomeContainer';
+import HotelsContainer from './containers/HotelsContainer';
+import HotelContainer from './containers/HotelContainer';
+import LoginContainer from './containers/LoginContainer';
+import SignupContainer from './containers/SignupContainer';
+import NotFoundContainer from './containers/NotFoundContainer';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+
+
+
+
+
+class App extends Component {
+  render() {    
     return (
       <Router>
         <div>
-          <nav>
-            <ul>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/hotels">Hotels</Link></li>
-              <li><Link to="/restaurants">Restaurants</Link></li>
-              <li><Link to="/login">Login</Link></li>
-              <li><Link to="/signup">Signup</Link></li>
-            </ul>
-          </nav>
-              <Switch>
-                <Route path="/">
-                  <HomeContainer />
-                </Route>
-                <Route path="/hotels">
-                  <Hotels />
-                </Route>
-                <Route path="/restaurants">
-                  <Restaurants />
-                </Route>
-                <Route path="/login">
-                  <Login />
-                </Route> 
-                <Route path="/signup">
-                  <Signup />
-                </Route> 
-              </Switch>
+          <Navigation />          
+          <Switch>            
+            <Route path="/hotels/:id"><HotelContainer /></Route>
+            <Route path="/hotels" component={HotelsContainer}></Route>
+            <Route path="/login"><LoginContainer /></Route>
+            <Route path="/signup"><SignupContainer /></Route>                        
+            <Route path="/"><HomeContainer /></Route>
+            <Route path="*"><NotFoundContainer /></Route>
+          </Switch>
         </div>
-      </Router>  
+      </Router>
     );
   }
 }
+
 export default App;
